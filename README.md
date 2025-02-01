@@ -1,4 +1,4 @@
-# Heart Disease Predictor AI 🫀
+# Heart Disease Predictor 🫀
 
 <div align="center">
 
