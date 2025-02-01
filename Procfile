@@ -1,0 +1,1 @@
+web: gunicorn HeartDiseaseMLInterpretation.heart_disease_app.app:app 
