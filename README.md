@@ -147,7 +147,7 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 ## 📬 Contact
 
-Abhiram - [@your_twitter](https://twitter.com/your_twitter) - email@example.com
+Abhiram 
 
 Project Link: [https://github.com/abhi963007/heart-disease-predictor](https://github.com/abhi963007/heart-disease-predictor)
 
