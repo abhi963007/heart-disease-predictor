@@ -10,7 +10,7 @@
 
 <img src="https://raw.githubusercontent.com/abhi963007/heart-disease-predictor/main/demo.gif" alt="Project Demo" width="600"/>
 
-*An AI-powered web application for heart disease risk prediction using advanced machine learning*
+* web application for heart disease risk prediction using advanced machine learning*
 
 [Live Demo](#) · [Report Bug](https://github.com/abhi963007/heart-disease-predictor/issues) · [Request Feature](https://github.com/abhi963007/heart-disease-predictor/issues)
 
