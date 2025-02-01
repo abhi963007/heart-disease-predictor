@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heart Health Predictor - AI-Powered Risk Assessment</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Outfit', sans-serif;
+            overflow-x: hidden;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Outfit', sans-serif;
+            letter-spacing: -0.025em;
+        }
+
+        .hero-title {
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+        }
+
+        .nav-link {
+            font-weight: 500;
+            letter-spacing: -0.01em;
+        }
+
+        .feature-title {
+            font-weight: 600;
+            letter-spacing: -0.02em;
+        }
+
+        .body-text {
+            font-weight: 400;
+            letter-spacing: -0.01em;
+            line-height: 1.6;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #ff6b6b 0%, #4ecdc4 100%);
+        }
+        
+        .hero-gradient {
+            background: linear-gradient(135deg, rgba(255,107,107,0.1) 0%, rgba(78,205,196,0.1) 100%);
+        }
+        
+        .card-3d {
+            transform-style: preserve-3d;
+            transition: transform 0.5s;
+        }
+        
+        .card-3d:hover {
+            transform: rotateY(10deg) rotateX(10deg);
+        }
+
+        #particles-js {
+            display: none;
+        }
+
+        .content-wrapper {
+            position: relative;
+            z-index: 1;
+        }
+
+        .feature-card {
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .testimonial-card {
+            perspective: 1000px;
+        }
+
+        .lottie-container {
+            position: relative;
+            background: transparent;
+        }
+
+        .loading-spinner {
+            z-index: 1;
+            background: rgba(255, 255, 255, 0.8);
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        .loading-spinner.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        #particles-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            background: linear-gradient(135deg, rgba(255,107,107,0.05) 0%, rgba(78,205,196,0.05) 100%);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Particle Background -->
+    <div id="particles-bg"></div>
+
+    <!-- Main Content Wrapper -->
+    <div class="content-wrapper">
+        <!-- Navigation -->
+        <nav class="fixed w-full z-50 bg-white/80 backdrop-blur-md shadow-sm">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between items-center h-16">
+                    <div class="flex items-center">
+                        <svg class="w-8 h-8 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 12v.01M12 16v.01M12 8v.01"/>
+                        </svg>
+                        <div id="nav-heart-animation" class="w-8 h-8 ml-2"></div>
+                        <span class="ml-2 text-xl font-semibold text-gray-900">Heart Health Predictor</span>
+                    </div>
+                    <div class="hidden md:flex items-center space-x-8">
+                        <a href="#how-it-works" class="text-gray-700 hover:text-red-500">How It Works</a>
+                        <a href="#features" class="text-gray-700 hover:text-red-500">Features</a>
+                        <a href="#testimonials" class="text-gray-700 hover:text-red-500">Testimonials</a>
+                        <a href="index.html" class="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 transition">Get Started</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Hero Section -->
+        <div class="relative min-h-screen flex items-center hero-gradient">
+            <div id="particles-js"></div>
+            <div class="content-wrapper max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <h1 class="text-5xl font-bold text-gray-900 mb-6 hero-title">
+                            Know Your Heart Health in Seconds!
+                        </h1>
+                        <p class="text-xl text-gray-600 mb-8 body-text">
+                            AI-powered heart disease risk assessment with instant results. Make informed decisions about your heart health today.
+                        </p>
+                        <a href="index.html" class="inline-flex items-center px-8 py-4 bg-red-500 text-white font-semibold rounded-lg hover:bg-red-600 transition transform hover:scale-105">
+                            Check Your Heart Risk
+                            <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                            </svg>
+                        </a>
+                    </div>
+                    <div class="relative">
+                        <div id="hero-animation" class="w-full h-96"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- How It Works Section -->
+        <section id="how-it-works" class="py-20 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-4xl font-bold text-center text-gray-900 mb-16">How It Works?</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+                    <div class="text-center feature-card">
+                        <div class="w-32 h-32 mx-auto mb-6">
+                            <svg class="w-full h-full text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-4 feature-title">Enter Health Data</h3>
+                        <p class="text-gray-600 body-text">Fill a simple form with your basic health details and medical history.</p>
+                    </div>
+                    <div class="text-center feature-card">
+                        <div class="w-32 h-32 mx-auto mb-6">
+                            <svg class="w-full h-full text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-4 feature-title">AI Analysis</h3>
+                        <p class="text-gray-600 body-text">Our advanced AI model analyzes your data using medical research patterns.</p>
+                    </div>
+                    <div class="text-center feature-card">
+                        <div class="w-32 h-32 mx-auto mb-6">
+                            <svg class="w-full h-full text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-4 feature-title">Get Instant Report</h3>
+                        <p class="text-gray-600 body-text">Receive detailed insights and personalized health recommendations.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section id="features" class="py-20 bg-gray-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-4xl font-bold text-center text-gray-900 mb-16">Why Choose Our Prediction System?</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="bg-white p-8 rounded-xl shadow-lg feature-card">
+                        <div class="w-16 h-16 mb-6 mx-auto">
+                            <svg class="w-full h-full text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-4 text-center feature-title">Accurate Predictions</h3>
+                        <p class="text-gray-600 text-center body-text">Trained with extensive medical data for reliable risk assessment.</p>
+                    </div>
+                    <div class="bg-white p-8 rounded-xl shadow-lg feature-card">
+                        <div class="w-16 h-16 mb-6 mx-auto">
+                            <svg class="w-full h-full text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-4 text-center feature-title">Fast & Secure</h3>
+                        <p class="text-gray-600 text-center body-text">Get instant results with complete data privacy and security.</p>
+                    </div>
+                    <div class="bg-white p-8 rounded-xl shadow-lg feature-card">
+                        <div class="w-16 h-16 mb-6 mx-auto">
+                            <svg class="w-full h-full text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-4 text-center feature-title">Risk Management Tips</h3>
+                        <p class="text-gray-600 text-center body-text">Receive personalized guidance to improve heart health.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section id="testimonials" class="py-20 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-4xl font-bold text-center text-gray-900 mb-16">What Our Users Say</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="testimonial-card card-3d bg-gradient-to-br from-red-50 to-teal-50 p-8 rounded-xl shadow-lg">
+                        <p class="text-gray-600 mb-6 body-text">"This tool helped me understand my heart health better. The predictions were accurate and the recommendations were very helpful."</p>
+                        <div class="flex items-center">
+                            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="John Doe" class="w-12 h-12 rounded-full object-cover">
+                            <div class="ml-4">
+                                <h4 class="font-semibold">John Doe</h4>
+                                <p class="text-sm text-gray-500">Heart Health Advocate</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card card-3d bg-gradient-to-br from-red-50 to-teal-50 p-8 rounded-xl shadow-lg">
+                        <p class="text-gray-600 mb-6 body-text">"The instant results and professional insights helped me take immediate action for my heart health."</p>
+                        <div class="flex items-center">
+                            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Jane Smith" class="w-12 h-12 rounded-full object-cover">
+                            <div class="ml-4">
+                                <h4 class="font-semibold">Jane Smith</h4>
+                                <p class="text-sm text-gray-500">Healthcare Professional</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card card-3d bg-gradient-to-br from-red-50 to-teal-50 p-8 rounded-xl shadow-lg">
+                        <p class="text-gray-600 mb-6 body-text">"Easy to use and very informative. The AI predictions gave me peace of mind about my heart health status."</p>
+                        <div class="flex items-center">
+                            <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="Mike Johnson" class="w-12 h-12 rounded-full object-cover">
+                            <div class="ml-4">
+                                <h4 class="font-semibold">Mike Johnson</h4>
+                                <p class="text-sm text-gray-500">Regular User</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="bg-gray-900 text-white py-12">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                    <div>
+                        <h3 class="text-xl font-semibold mb-4">Heart Health Predictor</h3>
+                        <p class="text-gray-400">AI-powered heart disease risk assessment tool</p>
+                    </div>
+                    <div>
+                        <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
+                        <ul class="space-y-2">
+                            <li><a href="/" class="text-gray-400 hover:text-white">Home</a></li>
+                            <li><a href="#how-it-works" class="text-gray-400 hover:text-white">How It Works</a></li>
+                            <li><a href="#features" class="text-gray-400 hover:text-white">Features</a></li>
+                            <li><a href="#testimonials" class="text-gray-400 hover:text-white">Testimonials</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="text-lg font-semibold mb-4">Legal</h4>
+                        <ul class="space-y-2">
+                            <li><a href="#" class="text-gray-400 hover:text-white">Privacy Policy</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-white">Terms of Service</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-white">Disclaimer</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="text-lg font-semibold mb-4">Contact</h4>
+                        <ul class="space-y-2">
+                            <li class="text-gray-400">Email: contact@hearthealth.ai</li>
+                            <li class="flex space-x-4 mt-4">
+                                <a href="#" class="text-gray-400 hover:text-white">
+                                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                                    </svg>
+                                </a>
+                                <a href="#" class="text-gray-400 hover:text-white">
+                                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+                                    </svg>
+                                </a>
+                                <a href="#" class="text-gray-400 hover:text-white">
+                                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.334-.373-.121l-6.871 4.326-2.962-.924c-.643-.204-.657-.643.136-.953l11.57-4.458c.538-.204 1.006.121.832.934z"/>
+                                    </svg>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="border-t border-gray-800 mt-12 pt-8 text-center">
+                    <p class="text-gray-400">&copy; 2024 Heart Health Predictor. All rights reserved.</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Initialize Lottie Animations
+        const loadAnimation = (containerId, path) => {
+            const container = document.getElementById(containerId);
+            const loadingSpinner = container.querySelector('.loading-spinner');
+            
+            try {
+                const anim = lottie.loadAnimation({
+                    container: container,
+                    renderer: 'svg',
+                    loop: true,
+                    autoplay: true,
+                    path: path,
+                    rendererSettings: {
+                        preserveAspectRatio: 'xMidYMid slice',
+                        progressiveLoad: true
+                    }
+                });
+
+                // Hide loading spinner when animation is loaded
+                anim.addEventListener('DOMLoaded', () => {
+                    if (loadingSpinner) {
+                        loadingSpinner.classList.add('hidden');
+                    }
+                });
+
+                // Handle animation errors
+                anim.addEventListener('error', () => {
+                    console.error(`Error loading animation for ${containerId}`);
+                    if (loadingSpinner) {
+                        loadingSpinner.innerHTML = '<p class="text-red-500 text-sm">Error loading animation</p>';
+                    }
+                });
+
+                return anim;
+            } catch (error) {
+                console.error(`Error initializing animation for ${containerId}:`, error);
+                if (loadingSpinner) {
+                    loadingSpinner.innerHTML = '<p class="text-red-500 text-sm">Error loading animation</p>';
+                }
+                return null;
+            }
+        };
+
+        // Load all animations
+        document.addEventListener('DOMContentLoaded', () => {
+            // Load animations with simple, reliable public URLs
+            loadAnimation('hero-animation', 'https://assets3.lottiefiles.com/packages/lf20_5njp3vgg.json');
+            
+            // How it works animations - using verified public animations
+            loadAnimation('form-animation', 'https://assets1.lottiefiles.com/packages/lf20_ddxv3rxw.json');
+            loadAnimation('analysis-animation', 'https://assets1.lottiefiles.com/packages/lf20_yd8rg8yh.json');
+            loadAnimation('report-animation', 'https://assets1.lottiefiles.com/packages/lf20_bp5lntrf.json');
+            
+            // Feature animations - updated with new reliable URLs
+            loadAnimation('feature1-animation', 'https://assets9.lottiefiles.com/packages/lf20_w4qzj1ky.json'); // Accuracy animation
+            loadAnimation('feature2-animation', 'https://assets6.lottiefiles.com/packages/lf20_q4wbz787.json'); // Speed/security animation
+            loadAnimation('feature3-animation', 'https://assets7.lottiefiles.com/packages/lf20_v7gj8hk2.json'); // Health tips animation
+        });
+
+        // Enhanced Three.js Particle Background
+        const initParticles = () => {
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+            
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2)); // Performance optimization
+            document.getElementById('particles-bg').appendChild(renderer.domElement);
+
+            // Create particles with improved distribution
+            const particlesGeometry = new THREE.BufferGeometry();
+            const particlesCount = 2000; // Increased particle count
+            const posArray = new Float32Array(particlesCount * 3);
+
+            for(let i = 0; i < particlesCount * 3; i += 3) {
+                // Improved particle distribution
+                posArray[i] = (Math.random() - 0.5) * 8;
+                posArray[i + 1] = (Math.random() - 0.5) * 8;
+                posArray[i + 2] = (Math.random() - 0.5) * 8;
+            }
+
+            particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+
+            // Enhanced particle material
+            const particlesMaterial = new THREE.PointsMaterial({
+                size: 0.004,
+                color: '#ff6b6b',
+                transparent: true,
+                opacity: 0.6,
+                blending: THREE.AdditiveBlending,
+                depthWrite: false // Performance optimization
+            });
+
+            // Create mesh
+            const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
+            scene.add(particlesMesh);
+            camera.position.z = 3;
+
+            // Enhanced mouse movement effect
+            let mouseX = 0;
+            let mouseY = 0;
+            let targetX = 0;
+            let targetY = 0;
+
+            document.addEventListener('mousemove', (event) => {
+                mouseX = (event.clientX / window.innerWidth) - 0.5;
+                mouseY = (event.clientY / window.innerHeight) - 0.5;
+            });
+
+            // Smooth animation
+            const animate = () => {
+                requestAnimationFrame(animate);
+                
+                // Smooth rotation
+                targetX += (mouseX - targetX) * 0.05;
+                targetY += (mouseY - targetY) * 0.05;
+                
+                particlesMesh.rotation.x += 0.0005;
+                particlesMesh.rotation.y += 0.0005;
+
+                // Smooth mouse follow
+                particlesMesh.rotation.x += targetY * 0.2;
+                particlesMesh.rotation.y += targetX * 0.2;
+
+                // Gentle wave effect
+                const time = Date.now() * 0.0005;
+                particlesMesh.position.y = Math.sin(time) * 0.1;
+                
+                renderer.render(scene, camera);
+            };
+
+            // Optimized resize handler
+            const handleResize = () => {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            };
+
+            window.addEventListener('resize', handleResize);
+            animate();
+        };
+
+        // Initialize particles after page load
+        window.addEventListener('load', initParticles);
+    </script>
+</body>
+</html> 
