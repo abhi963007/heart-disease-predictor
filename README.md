@@ -123,5 +123,4 @@ The SHAP beeswarm plot shows the impact of each feature across all predictions. 
 
 ---
 
-> _Analysis by:_ **Diego Taquiri Díaz**
 ---
